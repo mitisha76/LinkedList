@@ -1,0 +1,79 @@
+package LinkedLIst;
+import java.util.*;
+
+import LinkedLIst.insert.Node;
+public class DetectLoop {
+	class Node
+	{
+		int data;
+		Node next;
+		Node(int data)
+		{
+			this.data=data;
+			next=null;
+		}
+	}
+	void insert(int new_data)
+	{
+		Node new_node=new Node(new_data);
+		if(head==null)
+		{
+			head=new_node;
+			return;
+		}
+		Node current=head;
+		while(current.next!=null)
+		{
+			current=current.next;
+		}
+		current.next=new_node;
+		
+	}
+	public void display()
+	{
+		Node temp_node=head;
+		while(temp_node!=null)
+		{
+			System.out.println(temp_node.data+" ");
+			temp_node=temp_node.next;
+		}
+	}
+	static boolean detectLoop(Node h)
+	{
+		HashSet<Node> k=new HashSet<Node>();
+		while(h!=null)
+		{
+			if(k.contains(h))
+			return true;
+			
+			k.add(h);
+			h=h.next;
+		}
+		return false;
+	}
+	Node head;
+	public static void main(String[] args)
+	{
+		Scanner sc=new Scanner(System.in);
+		LinkedList l=new LinkedList();
+		DetectLoop d=new DetectLoop();
+		System.out.println("Enter number of nodes");
+		int x=sc.nextInt();
+
+		
+		for(int i=0;i<x;i++)
+		{
+			d.insert(sc.nextInt());
+		}
+	     d.head.next.next.next = d.head; 
+
+		//d.display();
+		if(detectLoop(d.head))
+		{
+			System.out.println("loop found");
+		}
+		else
+			System.out.println("loop not found");
+	}
+
+}
